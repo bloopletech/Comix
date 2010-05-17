@@ -219,31 +219,35 @@ class EventHandler:
         otherwise.
         """
         if 'GDK_BUTTON2_MASK' in event.state.value_names:
-            return
+          return
         if event.direction == gtk.gdk.SCROLL_UP:
-            if self._window.zoom_mode == preferences.ZOOM_MODE_BEST:
-                self._window.previous_page()
-            elif self._window.zoom_mode == preferences.ZOOM_MODE_HEIGHT:
-                if self._window.is_manga_mode:
-                    self._scroll_with_flipping(70, 0)
-                else:
-                    self._scroll_with_flipping(-70, 0)
-            else:
-                self._scroll_with_flipping(0, -70)
-        elif event.direction == gtk.gdk.SCROLL_DOWN:
-            if self._window.zoom_mode == preferences.ZOOM_MODE_BEST:
-                self._window.next_page()
-            elif self._window.zoom_mode == preferences.ZOOM_MODE_HEIGHT:
-                if self._window.is_manga_mode:
-                    self._scroll_with_flipping(-70, 0)
-                else:
-                    self._scroll_with_flipping(70, 0)
-            else:
-                self._scroll_with_flipping(0, 70)
-        elif event.direction == gtk.gdk.SCROLL_RIGHT:
-            self._window.next_page()
-        elif event.direction == gtk.gdk.SCROLL_LEFT:
+          if self._window.zoom_mode == preferences.ZOOM_MODE_BEST:
             self._window.previous_page()
+          elif self._window.zoom_mode == preferences.ZOOM_MODE_HEIGHT:
+            self._scroll_with_flipping(-70 if self._window.is_manga_mode else 70, 0)
+          else:
+            self._scroll_with_flipping(0, -70)
+        elif event.direction == gtk.gdk.SCROLL_DOWN:
+          if self._window.zoom_mode == preferences.ZOOM_MODE_BEST:
+            self._window.next_page()
+          elif self._window.zoom_mode == preferences.ZOOM_MODE_HEIGHT:
+            self._scroll_with_flipping(70 if self._window.is_manga_mode else -70, 0)
+          else:
+            self._scroll_with_flipping(0, 70)
+        elif event.direction == gtk.gdk.SCROLL_RIGHT:
+          if self._window.zoom_mode == preferences.ZOOM_MODE_BEST:
+            self._window.next_page()
+          elif self._window.zoom_mode == preferences.ZOOM_MODE_WIDTH:
+            self._scroll_with_flipping(0, -70 if self._window.is_manga_mode else 70)
+          else:
+            self._scroll_with_flipping(70, 0)
+        elif event.direction == gtk.gdk.SCROLL_LEFT:
+          if self._window.zoom_mode == preferences.ZOOM_MODE_BEST:
+            self._window.previous_page()
+          elif self._window.zoom_mode == preferences.ZOOM_MODE_WIDTH:
+            self._scroll_with_flipping(0, 70 if self._window.is_manga_mode else -70)
+          else:
+            self._scroll_with_flipping(-70, 0)
 
     def mouse_press_event(self, widget, event):
         """Handle mouse click events on the main layout area."""
