@@ -95,22 +95,22 @@ class EventHandler:
         # Arrow keys scroll the image, except in best fit mode where
         # they flip pages instead.
         # ----------------------------------------------------------------
-        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.KP_Down):
+        elif event.keyval in (gtk.keysyms.Down, gtk.keysyms.KP_Down, gtk.keysyms.j):
             if not self._window.zoom_mode == preferences.ZOOM_MODE_BEST:
                 self._scroll_with_flipping(0, 50)
             else:
                 self._window.next_page()
-        elif event.keyval in (gtk.keysyms.Up, gtk.keysyms.KP_Up):
+        elif event.keyval in (gtk.keysyms.Up, gtk.keysyms.KP_Up, gtk.keysyms.k):
             if not self._window.zoom_mode == preferences.ZOOM_MODE_BEST:
                 self._scroll_with_flipping(0, -50)
             else:
                 self._window.previous_page()
-        elif event.keyval in (gtk.keysyms.Right, gtk.keysyms.KP_Right):
+        elif event.keyval in (gtk.keysyms.Right, gtk.keysyms.KP_Right, gtk.keysyms.l):
             if not self._window.zoom_mode == preferences.ZOOM_MODE_BEST:
                 self._scroll_with_flipping(50, 0)
             else:
                 self._window.next_page()
-        elif event.keyval in (gtk.keysyms.Left, gtk.keysyms.KP_Left):
+        elif event.keyval in (gtk.keysyms.Left, gtk.keysyms.KP_Left, gtk.keysyms.h):
             if not self._window.zoom_mode == preferences.ZOOM_MODE_BEST:
                 self._scroll_with_flipping(-50, 0)
             else:
